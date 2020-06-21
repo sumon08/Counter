@@ -33,13 +33,25 @@ void InitClock()
 		{
 			mult_factor = 96/F_XOSC;
 			osc_ready = 1;
+			break;
 		}
 	}
 	
 	if (osc_ready == 1)
 	{
 		OSCILLATOR.PLLCTRL.PLLSRC = OSCILLATOR_PLLCTRL_PLLSRC_XOSC;
+		OSCILLATOR.PLLCTRL.PLLFAC = mult_factor;
+		OSCILLATOR.CTRL.PLLEN = 1;
 		
+		count = 0xFFFF;
+		while(count--)
+		{
+			if (OSCILLATOR.STATUS.PLLRDY == 1)
+			{
+				osc_ready = 2;
+				break;
+			}
+		}
 	}
 	 
 	
