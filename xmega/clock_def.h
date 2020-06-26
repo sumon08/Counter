@@ -29,8 +29,8 @@ typedef struct
 	struct
 	{
 		reg8_t RC2MRDY : 1;
-		reg8_t RC32RDY : 1;
-		reg8_t RC32KEN : 1;
+		reg8_t RC32MRDY : 1;
+		reg8_t RC32KRDY : 1;
 		reg8_t XOSCRDY : 1;
 		reg8_t PLLRDY : 1;
 		reg8_t STATUS_RSERVED : 3;
@@ -38,10 +38,10 @@ typedef struct
 	
 	struct
 	{
-		reg8_t XOCSEL : 3;
+		reg8_t XOCSEL : 4;
 		reg8_t OSCPWR : 1;
 		reg8_t X32KLPM : 1;
-		reg8_t FRQRANGE : 3;
+		reg8_t FRQRANGE : 2;
 	}XOSCCTRL;
 	
 	struct 

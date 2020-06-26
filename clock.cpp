@@ -12,6 +12,8 @@
 #include "config.h"
 
 
+volatile uint8_t cpu_frequency = 0;
+
 void InitClock()
 {
 	uint8_t mult_factor = 0;
@@ -49,6 +51,34 @@ void InitClock()
 			if (OSCILLATOR.STATUS.PLLRDY == 1)
 			{
 				osc_ready = 2;
+				break;
+			}
+		}
+	}
+	
+	if(osc_ready == 2)
+	{
+		DISABLE_IO_CCP();
+		CLOCK.PSCTRL.PSADIV = CLOCK_PSCTRL_PSADIV_1;
+		CLOCK.PSCTRL.PSBCDIV = CLOCK_PSCTRL_PSBCDIV_2_2;
+		DISABLE_IO_CCP();
+		CLOCK.CTRL.SCLKSEL = CLOCK_CTRL_SCLKSEL_PLL;  
+		cpu_frequency = 24;
+	}
+	else
+	{
+		OSCILLATOR.CTRL.RC32MEN = 1;
+		count = 0xFFFF;
+		while(count--)
+		{
+			if (OSCILLATOR.STATUS.RC32MRDY == 1)
+			{
+				DISABLE_IO_CCP();
+				CLOCK.PSCTRL.PSADIV = CLOCK_PSCTRL_PSADIV_1;
+				CLOCK.PSCTRL.PSBCDIV = CLOCK_PSCTRL_PSBCDIV_1_1;
+				
+				DISABLE_IO_CCP();
+				CLOCK.CTRL.SCLKSEL = CLOCK_CTRL_SCLKSEL_RC32MHZ;
 				break;
 			}
 		}

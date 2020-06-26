@@ -1,7 +1,7 @@
 /*
- * Counter.c
+ * Counter.cpp
  *
- * Created: 6/19/2020 3:55:11 PM
+ * Created: 6/27/2020 12:16:34 AM
  * Author : Asus
  */ 
 
@@ -13,7 +13,6 @@ int main(void)
     /* Replace with your application code */
     while (1) 
     {
-		
     }
 }
 

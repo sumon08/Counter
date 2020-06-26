@@ -11,6 +11,9 @@
 
 
 
+void InitClock();
+
+
 
 
 #endif /* CLOCK_H_ */
